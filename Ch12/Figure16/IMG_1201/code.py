@@ -24,6 +24,11 @@ def zero_crossings(image):
 
     return output
 
+def enhance_laplacian(image, kernel_size=(5, 5)):
+    kernel = np.ones(kernel_size, np.uint8)
+    enhanced_image = cv2.dilate(image, kernel, iterations=1)
+    return enhanced_image
+
 image = cv2.imread('C:\\Users\\indus\\OneDrive\\Desktop\\ImageBook\\MyImplementations\\Ch12\\Figure16\\IMG_1201\\IMG_1201.jpg')
 
 gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -38,8 +43,10 @@ laplacian_normalized = 255 * (laplacian - min_val) / (max_val - min_val)
 laplacian_normalized = laplacian_normalized.astype(np.uint8)
 
 zero_crossings_image = zero_crossings(laplacian)
+enhanced_laplacian = enhance_laplacian(laplacian_normalized)
 
 cv2.imwrite('C:\\Users\\indus\\OneDrive\\Desktop\\ImageBook\\MyImplementations\\Ch12\\Figure16\\IMG_1201\\LoG_11.jpg', laplacian_normalized)
+cv2.imwrite('C:\\Users\\indus\\OneDrive\\Desktop\\ImageBook\\MyImplementations\\Ch12\\Figure16\\IMG_1201\\LoG_11_enhanced_1.jpg', enhanced_laplacian)
 cv2.imwrite('C:\\Users\\indus\\OneDrive\\Desktop\\ImageBook\\MyImplementations\\Ch12\\Figure16\\IMG_1201\\zerocross_11.jpg', zero_crossings_image)
 
 blurred_image = cv2.GaussianBlur(gray_image, (5, 5), 1)
@@ -52,6 +59,8 @@ laplacian_normalized = 255 * (laplacian - min_val) / (max_val - min_val)
 laplacian_normalized = laplacian_normalized.astype(np.uint8)
 
 zero_crossings_image = zero_crossings(laplacian)
+enhanced_laplacian = enhance_laplacian(laplacian_normalized)
 
 cv2.imwrite('C:\\Users\\indus\\OneDrive\\Desktop\\ImageBook\\MyImplementations\\Ch12\\Figure16\\IMG_1201\\LoG_5.jpg', laplacian_normalized)
+cv2.imwrite('C:\\Users\\indus\\OneDrive\\Desktop\\ImageBook\\MyImplementations\\Ch12\\Figure16\\IMG_1201\\LoG_5_enhanced_1.jpg', enhanced_laplacian)
 cv2.imwrite('C:\\Users\\indus\\OneDrive\\Desktop\\ImageBook\\MyImplementations\\Ch12\\Figure16\\IMG_1201\\zerocross_5.jpg', zero_crossings_image)
